@@ -18,8 +18,8 @@ Prise en main de Docker : lancer des containers à partir d'images existantes (`
 ### Flask app (`td/flask-app`)
 
 ```bash
-docker build -t mleti/myfirstapp td/flask-app
-docker run -d -p 8888:5000 --name myfirstapp mleti/myfirstapp
+docker build -t marialeticiagaspar/myfirstapp td/flask-app
+docker run -d -p 8888:5000 --name myfirstapp marialeticiagaspar/myfirstapp
 # http://localhost:8888
 ```
 
