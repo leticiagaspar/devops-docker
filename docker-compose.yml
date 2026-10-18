@@ -1,0 +1,45 @@
+services:
+    backend:
+        build: ./tp/backend
+        image: mleti/backend
+        env_file: .env
+        networks:
+            - backend-network
+            - frontend-network
+        depends_on:
+            database:
+                condition: service_healthy
+        restart: unless-stopped
+
+    database:
+        build: ./tp/database
+        image: mleti/database
+        env_file: .env
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            - backend-network
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        restart: unless-stopped
+
+    httpd:
+        build: ./tp/httpd
+        image: mleti/httpd
+        ports:
+            - "80:80"
+        networks:
+            - frontend-network
+        depends_on:
+            - backend
+        restart: unless-stopped
+
+networks:
+    backend-network:
+    frontend-network:
+
+volumes:
+    db-data:
