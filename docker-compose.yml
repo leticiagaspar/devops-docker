@@ -1,7 +1,7 @@
 services:
     backend:
         build: ./tp/backend
-        image: mleti/backend
+        image: marialeticiagaspar/backend
         env_file: .env
         networks:
             - backend-network
@@ -13,7 +13,7 @@ services:
 
     database:
         build: ./tp/database
-        image: mleti/database
+        image: marialeticiagaspar/database
         env_file: .env
         volumes:
             - db-data:/var/lib/postgresql/data
@@ -28,7 +28,7 @@ services:
 
     httpd:
         build: ./tp/httpd
-        image: mleti/httpd
+        image: marialeticiagaspar/httpd
         ports:
             - "80:80"
         networks:
